@@ -46,9 +46,21 @@ async function update(user) {
 
 
 async function login(userCred) {
-    const users = await storageService.query(STORAGE_KEY)
-    const user = users.find(user => user.username.toLowerCase() === userCred.username.toLowerCase())
-    if (user) return saveLocalUser(user)
+    console.log(userCred);
+    
+    try {
+        const users = await storageService.query(STORAGE_KEY)
+        console.log(users);
+        
+        const user = users.find(user => user.username.toLowerCase() === userCred.username.toLowerCase())
+        console.log("user",user);
+        if (!user || user.password !== userCred.password) {
+            throw new Error
+        }
+        return saveLocalUser(user)
+    } catch (err) {
+        console.log('Invalid username or password', err)
+    }
 }
 
 async function signup(userCred) {
@@ -71,7 +83,7 @@ async function logout() {
 }
 
 async function saveLocalUser(user) {
-    user = { _id: user._id, fullname: user.fullname, username: user.username}
+    user = { _id: user._id, fullname: user.fullname, username: user.username, isAdmin: user.isAdmin}
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
     return user
 }
@@ -82,9 +94,9 @@ function getLoggedinUser() {
 
 async function loadDemoUsers() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify([
-    { fullname: 'Sahar', username: 'w', password: '123' },
-    { fullname: 'Admin', username: 'Admin', password: '123', isAdmin: true },
-    { fullname: 'check', username: 'Check', password: '123' }]
+    {_id:utilService.makeId(), fullname: 'Sahar', username: 'Sahar', password: '123' },
+    {_id:utilService.makeId(), fullname: 'Admin', username: 'Admin', password: '123', isAdmin: true },
+    {_id:utilService.makeId(), fullname: 'check', username: 'Check', password: '123' }]
     ))
     console.log('Demo users loaded')
 }

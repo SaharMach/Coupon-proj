@@ -1,0 +1,12 @@
+.admin-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    span {
+        font-size: 34px;
+    }
+    img {
+        height: 40px;
+        border-radius: 50%;
+    }
+}
