@@ -1,11 +1,11 @@
 import { ProfileMenu } from "./ProfileMenu"
 
-export function AdminHeader() {
+export function AdminHeader({loggedInUser}) {
 
     return (
         <section className="admin-header">
-            <span>Dashboard</span>
-            <ProfileMenu />            
+            <h3>Panel</h3>
+            <ProfileMenu loggedInUser={loggedInUser}/>            
         </section>
     )
 }

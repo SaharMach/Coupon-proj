@@ -2,3 +2,6 @@
 @use './cmps/AdminHeader' as *;
 @use './base' as *;
 @use './cmps/AdminMenu' as *;
+@use './cmps/DynamicCmp' as *;
+@use './cmps/UserList' as *;
+@use './cmps/UserForm' as *;

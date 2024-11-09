@@ -2,11 +2,27 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    span {
-        font-size: 34px;
+    height: 70px;
+    background: #fcfcfc;
+    border-radius: 8px;
+    padding: 20px;
+    
+    h3 {
+        font-size: 40px;
+        font-weight: 300;
     }
-    img {
-        height: 40px;
-        border-radius: 50%;
+    &-menu {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        span {
+            font-size: 16px;
+        }
+        img {
+            height: 40px;
+            border-radius: 50%;
+        }
     }
+    
 }

@@ -1,18 +1,15 @@
+import { UserList } from "./UserList";
 
 
-
-export function DynamicCmp({props}) {
+export function DynamicCmp({type}) {
     
-    switch (props) {
+    switch (type) {
         case 'Users':
-            console.log('clicked');
-            break
+            return <div className="dyn-cmp"><UserList /></div>
         case 'Coupons':
-            console.log('coupons');
-            break
+            return <div className="dyn-cmp">Coupons</div>
         case 'Reports':
-            console.log('reports');
-            break
+            return <div className="dyn-cmp">Reports</div>
         default:
             return null;
     }

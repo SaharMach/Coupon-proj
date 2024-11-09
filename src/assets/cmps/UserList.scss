@@ -1,0 +1,118 @@
+.user-list-con {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    
+    &-header {
+        display: flex;
+        justify-content: space-between;    
+        align-items: center;
+        h3 {
+            font-size: 30px;
+            font-weight: 300;
+            border-bottom: 2px solid black;
+        }
+        button {
+            padding: 10px 90px;
+            border-radius: 8px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #2c88eb;
+            }
+        }
+    }
+
+
+    .create-dialog {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        z-index: 10;
+        width: 30%;
+        .close-btn {
+            position: absolute;
+            right: 5%;
+            top: 0;
+            margin-top: 10px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 12px;
+            color: #ffffff;
+            &:hover {
+                background-color: #2c88eb;
+            }
+        }
+    }
+    
+
+
+    .user-list {
+        
+
+        .user-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr 0.2fr;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 26px;
+            margin-bottom: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            align-items: center;
+            font-family: Arial, sans-serif;
+
+            &:hover {
+                background-color: #f4f4f4;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .username {
+                font-weight: bold;
+                color: #333;
+            }
+
+            .password {
+                color: #999;
+                transition: color 0.3s ease;
+                display: flex;
+                font-size: 12px;
+                text-overflow: ellipsis;
+
+            }
+
+            .delete-btn {
+                background-color: #e0e0e0;
+                border: none;
+                border-radius: 4px;
+                padding: 8px 12px;
+                cursor: pointer;
+                font-size: 12px;
+                transition: background-color 0.3s ease;
+
+                &:hover {
+                    background-color: #bebebe;
+                }
+            }
+
+            &:hover {
+                .password {
+                    color: #333;
+                }
+            }
+        }
+    }
+}

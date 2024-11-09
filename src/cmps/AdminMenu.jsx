@@ -1,11 +1,26 @@
-export function AdminMenu({ setType }) {
+import { userService } from "../services/user.service"
+
+export function AdminMenu({ setType, type, setLoggedInUser }) {
+    const menuItems = ['Users', 'Coupons', 'Reports']
+
+    function onLogout() {
+        userService.logout()
+        setLoggedInUser(null)
+    }
     return (
         <nav className="admin-menu">
             <ul>
-                <li onClick={() => setType('Users')}>Users</li>
-                <li onClick={() => setType('Coupons')}>Coupons</li>
-                <li onClick={() => setType('Reports')}>Reports</li>
+                {menuItems.map((item) => (
+                    <li 
+                        key={item}
+                        onClick={() => setType(item)}
+                        className={type === item ? 'active' : ''}
+                    >
+                        {item}
+                    </li>
+                ))}
             </ul>
+            <span className="admin-menu-signout" onClick={onLogout}>Sign out</span>
         </nav>
     )
 }

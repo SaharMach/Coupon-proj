@@ -55,8 +55,7 @@ export function Login() {
                     <button className='sign-btn'>Login</button>
                 </form>
             </div>
-            <footer className='login-footer'>
-            </footer>
+            
         </div>
     )
 }

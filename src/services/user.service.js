@@ -54,7 +54,7 @@ async function login(userCred) {
         
         const user = users.find(user => user.username.toLowerCase() === userCred.username.toLowerCase())
         console.log("user",user);
-        if (!user || user.password !== userCred.password) {
+        if (!user || user.password.toLowerCase() !== userCred.password.toLowerCase()) {
             throw new Error
         }
         return saveLocalUser(user)
@@ -64,6 +64,8 @@ async function login(userCred) {
 }
 
 async function signup(userCred) {
+    console.log(userCred);
+    
     let users = await getUsers()
     const isUsernameTaken = users.some(existingUser => existingUser.username.toLowerCase() === userCred.username.toLowerCase())
     if (isUsernameTaken) {
@@ -72,18 +74,20 @@ async function signup(userCred) {
     }
     try {
         const user = await storageService.post(STORAGE_KEY, userCred)
-        return saveLocalUser(user)
+        saveLocalUser(user)
+        return user 
     } catch (err) {
         console.error('Failed to sign up user:', err);
     }
 }
 
 async function logout() {
+    console.log('logged out!')
     sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN_USER)
 }
 
 async function saveLocalUser(user) {
-    user = { _id: user._id, fullname: user.fullname, username: user.username, isAdmin: user.isAdmin}
+    user = { _id: user._id, username: user.username, isAdmin: user.isAdmin}
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
     return user
 }
@@ -94,10 +98,20 @@ function getLoggedinUser() {
 
 async function loadDemoUsers() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify([
-    {_id:utilService.makeId(), fullname: 'Sahar', username: 'Sahar', password: '123' },
-    {_id:utilService.makeId(), fullname: 'Admin', username: 'Admin', password: '123', isAdmin: true },
-    {_id:utilService.makeId(), fullname: 'check', username: 'Check', password: '123' }]
-    ))
+        {_id:utilService.makeId(),  username: 'Sahar', password: '1111111' },
+        {_id:utilService.makeId(), username: 'Admin', password: 'admin', isAdmin: true },
+        {_id:utilService.makeId(), username: 'Check', password: '12aqwse3' },
+        {_id:utilService.makeId(), username: '4sdfre23', password: '29084' },
+        {_id:utilService.makeId(), username: 'chzxczxeck', password: 'ewruo' },
+        {_id:utilService.makeId(), username: 'Chcvbeck', password: '123werwa' },
+        {_id:utilService.makeId(), username: 'asdxcv', password: '2SVBFTR' },
+        {_id:utilService.makeId(), username: 'zxcs', password: 'ASD1QWEN' },
+        {_id:utilService.makeId(), username: 'hhdfg', password: '123ASDF' },
+        {_id:utilService.makeId(), username: 'cvbsdf', password: 'asdasdfdsafdsf' },
+        {_id:utilService.makeId(), username: 'wer21', password: '123124dvc' },
+        {_id:utilService.makeId(), username: 'rtygrgh', password: '123asd' },
+        {_id:utilService.makeId(), username: '34fnvc', password: '123asd' },
+    ]))
     console.log('Demo users loaded')
 }
  
