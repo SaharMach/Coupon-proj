@@ -7,7 +7,8 @@ export const couponService = {
     getCoupons,
     remove,
     add,
-    update
+    update,
+    validateCoupon
 }
 
 async function add(coupon) {
@@ -16,36 +17,73 @@ async function add(coupon) {
         return res 
     } catch (err) {
         console.error('Failed to add coupon:', err)
+        throw err
     }
 }
 
-
 async function update(coupon) {
     try {
-
-        // let coupons = await storageService.query(STORAGE_KEY)
-        // const index = coupons.findIndex(c => c._id === coupon._id)
-        // if (index !== -1) {
-        //     coupons[index] = coupon
-        // }
         return await storageService.put(STORAGE_KEY, coupon)    
     } catch (err) {
         console.log("can't update coupon", err)
+        throw err
     }
 }
 
 async function getCoupons() {
-    let coupons = await storageService.query(STORAGE_KEY)
-    console.log(coupons);
-    if (!coupons || !coupons.length) {
-        await loadDemoCoupons()
-        coupons = await storageService.query(STORAGE_KEY)
+    try {
+
+        let coupons = await storageService.query(STORAGE_KEY)
+        console.log(coupons);
+        if (!coupons || !coupons.length) {
+            await loadDemoCoupons()
+            coupons = await storageService.query(STORAGE_KEY)
+        }
+        return coupons
+    } catch (err) {
+        console.log("Can't get coupons", err);
+        throw err
     }
-    return coupons
+}
+
+async function validateCoupon(couponCode) {
+    try {
+        let coupons = await storageService.query(STORAGE_KEY)
+        const couponIdx = coupons.findIndex(c => c.code.toLowerCase() === couponCode.toLowerCase())
+
+        if (couponIdx === -1) {
+            console.log("Coupon not found!")
+            return
+        }
+
+        const coupon = coupons[couponIdx]
+
+        if(coupon.usedCount+1 > coupon.usageLimit){
+            console.log("This coupon has reached usage limit")
+            return
+        }
+
+        if(new Date(coupon.expiresAt) < new Date()) {
+            console.log("Coupon expired!")
+            return
+        }
+
+        coupon.usedCount++
+        return await update(coupon)
+    } catch(err) {
+        console.log("Can't validate coupon", err);
+        throw err
+    }
 }
 
 function remove(couponId) {
-    return storageService.remove(STORAGE_KEY, couponId)
+    try {
+
+        return storageService.remove(STORAGE_KEY, couponId)
+    } catch (err) {
+        console.log("Can't remove coupon")
+        throw err
+    }
 }
 
 

@@ -28,7 +28,8 @@ export function AdminPage() {
             
             setCoupons(couponsData)
         } catch (err) {
-            console.log('couldnt fetch users', err)
+            console.log('couldnt fetch coupons', err)
+            throw err
         }
     }
     

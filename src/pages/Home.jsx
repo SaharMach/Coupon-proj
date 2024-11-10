@@ -1,10 +1,9 @@
 import { useEffect } from "react"
 import { Link } from "react-router-dom"
 import { userService } from "../services/user.service"
-
+import { OrderPanel } from "../cmps/OrderPanel"
 
 export function Home() {
-
     useEffect(() => {
         init()
     }, [])  
@@ -19,7 +18,11 @@ export function Home() {
 
     return (
         <div className="home-container">
-            <Link to="/admin">Go to Admin Page</Link>
+            <div className="home-header">
+                <h1>Welcome to Our Store</h1>
+                <Link to="/admin" className="admin-link">Go to Admin Page</Link>
+            </div>
+            <OrderPanel />
         </div>
     )
 }

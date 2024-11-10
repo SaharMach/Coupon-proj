@@ -31,7 +31,7 @@ export function CouponForm({ couponToEdit, setCoupons, setShowForm }) {
     };
 
     function handleDiscountChange(e) {
-        const { name, value } = e.target;
+        const { name, value } = e.target
         setCoupon((prevCoupon) => ({
             ...prevCoupon,
             discount: {
@@ -49,7 +49,7 @@ export function CouponForm({ couponToEdit, setCoupons, setShowForm }) {
     };
 
     async function handleSubmit(e) {
-        e.preventDefault();
+        e.preventDefault()
         try {
             if (coupon._id) {
                 await couponService.update(coupon);
@@ -76,9 +76,9 @@ export function CouponForm({ couponToEdit, setCoupons, setShowForm }) {
             date = new Date(date);
         }
         if (date instanceof Date && !isNaN(date)) {
-            return date.toISOString().split('T')[0];
+            return date.toISOString().split('T')[0]
         }
-        return '';
+        return ''
     }
     return (
         <div className="coupon-form">
@@ -137,16 +137,7 @@ export function CouponForm({ couponToEdit, setCoupons, setShowForm }) {
                     />
                 </div>
 
-                <div>
-                    <label>Stackable</label>
-                    <input
-                        type="checkbox"
-                        name="stackable"
-                        checked={coupon.stackable}
-                        onChange={handleChange}
-                    />
-                </div>
-
+               
                 <div>
                     <label>Usage Limit</label>
                     <input
@@ -156,6 +147,17 @@ export function CouponForm({ couponToEdit, setCoupons, setShowForm }) {
                         onChange={handleChange}
                     />
                 </div>
+
+                <div className="stackable">
+                    <label>Stackable</label>
+                    <input
+                        type="checkbox"
+                        name="stackable"
+                        checked={coupon.stackable}
+                        onChange={handleChange}
+                    />
+                </div>
+
 
                 <button type="submit">{coupon._id ? "Update Coupon" : "Create Coupon"}</button>
                 <button type="button" onClick={() => setShowForm(false)}>Cancel</button>

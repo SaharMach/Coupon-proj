@@ -1,5 +1,5 @@
 import { Toaster } from 'react-hot-toast'
-import { Route, HashRouter as Router, Routes, Navigate } from 'react-router-dom'
+import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { Home } from './pages/Home'
 import { AdminPage } from './pages/AdminPage'
 import { Login } from './pages/Login'

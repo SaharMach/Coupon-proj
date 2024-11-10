@@ -19,23 +19,40 @@ export const userService = {
 window.userService = userService
 
 async function getUsers() {
-    let users = await storageService.query(STORAGE_KEY)
-    console.log(users);
-    if (!users || !users.length) {
-        await loadDemoUsers()
-        users = await storageService.query(STORAGE_KEY)
+    try {
+
+        let users = await storageService.query(STORAGE_KEY)
+        console.log(users);
+        if (!users || !users.length) {
+            await loadDemoUsers()
+            users = await storageService.query(STORAGE_KEY)
+        }
+        console.log('from getUsers', users)
+        return users
+    } catch (err) {
+        console.log("Can't get users");
+        throw err
     }
-    console.log('from getUsers', users)
-    return users
 }
 
 async function getById(userId) {
-    const user = await storageService.get(STORAGE_KEY, userId)
-    return user
+    try {
+
+        const user = await storageService.get(STORAGE_KEY, userId)
+        return user
+    } catch (err) {
+        console.log("Can't fetch user by id")
+        throw err
+    }
 }
 
 function remove(userId) {
-    return storageService.remove(STORAGE_KEY, userId)
+    try {
+        return storageService.remove(STORAGE_KEY, userId)
+    } catch (err) {
+        console.log("Can't remove user");
+        throw err
+    }
 }
 
 
@@ -52,6 +69,7 @@ async function login(userCred) {
         return saveLocalUser(user)
     } catch (err) {
         console.log('Invalid username or password', err)
+        throw err
     }
 }
 
@@ -70,6 +88,7 @@ async function signup(userCred) {
         return user 
     } catch (err) {
         console.error('Failed to sign up user:', err);
+        throw err
     }
 }
 
