@@ -13,7 +13,6 @@ export const userService = {
     getUsers,
     getById,
     remove,
-    update,
     loadDemoUsers
 }
 
@@ -39,19 +38,12 @@ function remove(userId) {
     return storageService.remove(STORAGE_KEY, userId)
 }
 
-async function update(user) {
-    if(user._id === updatedUser._id) saveLocalUser(user)
-    return user
-}
-
 
 async function login(userCred) {
     console.log(userCred);
-    
     try {
         const users = await storageService.query(STORAGE_KEY)
         console.log(users);
-        
         const user = users.find(user => user.username.toLowerCase() === userCred.username.toLowerCase())
         console.log("user",user);
         if (!user || user.password.toLowerCase() !== userCred.password.toLowerCase()) {
@@ -74,7 +66,7 @@ async function signup(userCred) {
     }
     try {
         const user = await storageService.post(STORAGE_KEY, userCred)
-        saveLocalUser(user)
+        saveLocalUser(user) //Check it!
         return user 
     } catch (err) {
         console.error('Failed to sign up user:', err);
