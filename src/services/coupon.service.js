@@ -144,7 +144,7 @@ async function loadDemoCoupons() {
                 expiresAt: new Date("2024-06-28T23:59:59"),
                 stackable: true,
                 usageLimit: 100,
-                used: {at: [], count: 0},
+                used: {at: ["6/25/2024", "6/22/2024","6/14/2024", "5/25/2024",], count: 3},
                 createdBy: {_id: "BXypEk", username: "Admin", at: new Date()}
             },
             {
@@ -155,7 +155,7 @@ async function loadDemoCoupons() {
                 expiresAt: new Date("2024-12-31T23:59:59"),
                 stackable: true,
                 usageLimit: 100,
-                used: {at: [], count: 0},
+                used: {at: ["3/25/2024"], count: 1},
                 createdBy: {_id: "BXypEk", username: "Admin",at: new Date("2024-02-28")}
             },
             {
@@ -166,18 +166,18 @@ async function loadDemoCoupons() {
                 expiresAt: new Date("2024-12-31T23:59:59"),
                 stackable: true,
                 usageLimit: 150,
-                used: {at: [], count: 0},
+                used: {at: ["4/25/2024"], count: 1},
                 createdBy: { _id: "BXypEk", username: "Admin", at: new Date("2024-02-12")}
             },
             {
                 _id: utilService.makeId(),
                 code: "SAVE30",
-                desc: "30 shekels off on purchases above 200₪",
+                desc: "30 shekels off",
                 discount: { type: "amount", value: 30 },
                 expiresAt: new Date("2024-12-31T23:59:59"),
                 stackable: true,
                 usageLimit: 120,
-                used: {at: [], count: 0},
+                used: {at: ["10/25/2024"], count: 1},
                 createdBy: { _id: "BXypEk", username: "Sahar", at: new Date("2024-04-12")}
             },
             {
@@ -188,18 +188,18 @@ async function loadDemoCoupons() {
                 expiresAt: null,
                 stackable: true,
                 usageLimit: 80,
-                used: {at: [], count: 0},
+                used: {at: ["12/07/2024"], count: 1},
                 createdBy: { _id: "BXypEk", username: "Admin", at: new Date() }
             },
             {
                 _id: utilService.makeId(),
                 code: "SAVE60",
-                desc: "60 shekels off orders over 300₪",
+                desc: "60 shekels off",
                 discount: { type: "amount", value: 60 },
                 expiresAt: null,
                 stackable: false,
                 usageLimit: 50,
-                used: {at: [], count: 0},
+                used: {at: ["11/07/2024"], count: 1},
                 createdBy: { _id: "BXypEk", username: "Sahar", at: new Date("2024-10-12")}
             },
             {
@@ -210,7 +210,7 @@ async function loadDemoCoupons() {
                 expiresAt: new Date("2024-12-31T23:59:59"),
                 stackable: false,
                 usageLimit: 10,
-                used: {at: [], count: 0},
+                used: {at: ["8/08/2024"], count: 1},
                 createdBy: { _id: "BXypEk", username: "Admin",at: new Date("2024-10-28")}
             },
             {
@@ -221,7 +221,7 @@ async function loadDemoCoupons() {
                 expiresAt: new Date("2024-12-31T23:59:59"),
                 stackable: false,
                 usageLimit: 10,
-                used: {at: [], count: 0},
+                used: {at: ["11/01/2024"], count: 1},
                 createdBy: { _id: "BXypEk", username: "Admin",at: new Date("2024-10-28")}
             }
             

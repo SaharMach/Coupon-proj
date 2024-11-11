@@ -98,19 +98,18 @@ function getLoggedinUser() {
 //Demo users
 async function loadDemoUsers() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify([
-        {_id:utilService.makeId(),  username: 'Sahar', password: '1111111' },
         {_id:utilService.makeId(), username: 'Admin', password: 'admin', isAdmin: true },
-        {_id:utilService.makeId(), username: 'Check', password: '12aqwse3' },
-        {_id:utilService.makeId(), username: '4sdfre23', password: '29084' },
-        {_id:utilService.makeId(), username: 'chzxczxeck', password: 'ewruo' },
-        {_id:utilService.makeId(), username: 'Chcvbeck', password: '123werwa' },
-        {_id:utilService.makeId(), username: 'asdxcv', password: '2SVBFTR' },
-        {_id:utilService.makeId(), username: 'zxcs', password: 'ASD1QWEN' },
-        {_id:utilService.makeId(), username: 'hhdfg', password: '123ASDF' },
-        {_id:utilService.makeId(), username: 'cvbsdf', password: 'asdasdfdsafdsf' },
-        {_id:utilService.makeId(), username: 'wer21', password: '123124dvc' },
-        {_id:utilService.makeId(), username: 'rtygrgh', password: '123asd' },
-        {_id:utilService.makeId(), username: '34fnvc', password: '123asd' },
+        {_id:utilService.makeId(),  username: 'Sahar', password: '123', isAdmin: true },
+        {_id:utilService.makeId(), username: 'Bill', password: '29084' },
+        {_id:utilService.makeId(), username: 'Gates', password: 'ewruo' },
+        {_id:utilService.makeId(), username: 'Eilon', password: '123werwa' },
+        {_id:utilService.makeId(), username: 'Musk', password: '2SVBFTR' },
+        {_id:utilService.makeId(), username: 'Jeff', password: 'ASD1QWEN' },
+        {_id:utilService.makeId(), username: 'Bezos', password: '123ASDF' },
+        {_id:utilService.makeId(), username: 'Mark', password: 'asdasdfdsafdsf' },
+        {_id:utilService.makeId(), username: 'Zuckerberg', password: '123124dvc' },
+        {_id:utilService.makeId(), username: 'Satoshi', password: '123asd' },
+        {_id:utilService.makeId(), username: 'Nakamutu', password: '123asd' },
     ]))
     console.log('Demo users loaded')
 }
