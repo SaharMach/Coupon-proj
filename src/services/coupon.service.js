@@ -37,7 +37,6 @@ async function getCoupons() {
     try {
 
         let coupons = await storageService.query(STORAGE_KEY)
-        console.log(coupons);
         if (!coupons || !coupons.length) {
             await loadDemoCoupons()
             coupons = await storageService.query(STORAGE_KEY)
@@ -59,21 +58,18 @@ async function getCouponsByUser(username) {
     }
 }
 
-async function getCouponsByDateRange(startDate, endDate) {
-    console.log(startDate, endDate);
-    
+async function getCouponsByDateRange(startDate, endDate, baseCoupons = null) {
     try {
-        const coupons = await storageService.query(STORAGE_KEY)
-        const start = new Date(startDate)
-        const end = new Date(endDate)
-
-        return coupons.filter(coupon => {
-            const createdDate = new Date(coupon.createdBy.at)
-            return createdDate >= start && createdDate <= end
+        const couponsToFilter = baseCoupons || await storageService.query(STORAGE_KEY);
+        
+        return couponsToFilter.filter(coupon => {
+            const couponDate = new Date(coupon.createdBy.at);
+            return couponDate >= new Date(startDate) && 
+                   couponDate <= new Date(endDate);
         });
-    } catch (err) {
-        console.error("Failed to get coupons by date range:", err)
-        throw err
+    } catch (error) {
+        console.error("cant filter coupons by date range:", error);
+        throw error;
     }
 }
 
@@ -85,7 +81,6 @@ function getUsageData (coupons) {
             monthlyUsage[month] += 1
         });
     });
-    console.log(monthlyUsage);
     
     return monthlyUsage;
 };

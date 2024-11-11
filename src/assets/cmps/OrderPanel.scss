@@ -148,3 +148,49 @@
         }
     }
 }
+
+
+@media (max-width: 768px) {
+    .order-panel {
+
+        .input-group {
+            flex-direction: column;
+        }
+
+        .coupon-section {
+            .active-coupons {
+                h4 {
+                    display: none; /* Hide the title for smaller screens */
+                }
+
+                .active-coupons-list {
+                    display: flex;
+                    flex-wrap: wrap; /* Allow items to wrap into rows */
+                    gap: 8px; /* Space between items */
+                    justify-content: center; /* Center the items in the container */
+                    
+                    /* Ensure the container expands to fit all items */
+                    width: 100%; 
+                    height: auto;
+
+                    .coupon-item {
+                        flex: 1 1 calc(45% - 8px); /* Two items per row with space */
+                        min-width: 100px; /* Ensure a reasonable size */
+                        max-width: 150px;
+                        padding: 12px;
+                        background-color: white;
+                        border: 1px solid #eee;
+                        border-radius: 4px;
+                        text-align: center; /* Center content inside coupons */
+                        box-sizing: border-box;
+
+                        .coupon-discount {
+                            display: none; /* Hide less critical info on mobile */
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+

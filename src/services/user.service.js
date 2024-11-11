@@ -20,14 +20,11 @@ window.userService = userService
 
 async function getUsers() {
     try {
-
         let users = await storageService.query(STORAGE_KEY)
-        console.log(users);
         if (!users || !users.length) {
             await loadDemoUsers()
             users = await storageService.query(STORAGE_KEY)
         }
-        console.log('from getUsers', users)
         return users
     } catch (err) {
         console.log("Can't get users");
@@ -84,7 +81,6 @@ async function signup(userCred) {
     }
     try {
         const user = await storageService.post(STORAGE_KEY, userCred)
-        //saveLocalUser(user) //Check it!
         return user 
     } catch (err) {
         console.error('Failed to sign up user:', err);

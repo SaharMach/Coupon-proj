@@ -6,7 +6,7 @@ import { ReportInfo } from "./ReportInfo"
 import { ReportUsageChart } from "./ReportUsageChart"
 import { ReportDoughnut } from "./ReportDoughnut"
 import { utils, writeFile } from "xlsx"
-
+import toast from "react-hot-toast"
 export function ReportList({coupons}) {
     const [filteredCoupons, setFilteredCoupons] = useState(coupons)
     const [filters, setFilters] = useState({
@@ -17,8 +17,8 @@ export function ReportList({coupons}) {
 
     let ths = ["ID","Code", "Description", "Type", "Value", "Usage", "Stackable", "Expiry", "Owner", "Created at"]
 
-    function handleFilterChange(ev) {
-        const { name, value } = ev.target
+    function handleFilterChange(e) {
+        const { name, value } = e.target
         setFilters({ ...filters, [name]: value })
     }
 
@@ -27,13 +27,21 @@ export function ReportList({coupons}) {
         try {
             let results = coupons;
 
-            if (filters.username) {
+            if (filters.username && filters.startDate && filters.endDate) {
+                const userCoupons = await couponService.getCouponsByUser(filters.username)
+                results = await couponService.getCouponsByDateRange(
+                    filters.startDate, 
+                    filters.endDate,
+                    userCoupons 
+                )
+            }
+            else if (filters.username) {
                 results = await couponService.getCouponsByUser(filters.username)
             }
-            if (filters.startDate && filters.endDate) {
+            else if (filters.startDate && filters.endDate) {
                 results = await couponService.getCouponsByDateRange(filters.startDate, filters.endDate)
-                console.log(results)
             }
+
             setFilteredCoupons(results)
         } catch (err) {
             console.error("Failed to apply filters:", err);
@@ -61,7 +69,7 @@ export function ReportList({coupons}) {
 
         utils.book_append_sheet(workbook, worksheet, "Coupons")
         writeFile(workbook, "Coupons_Report.xlsx")
-        console.log("Excel file created!")
+        toast.success("Excel file created!")
       }
     
     
@@ -71,7 +79,7 @@ export function ReportList({coupons}) {
                 <section>
                     <h3>Reports</h3>
                     <button onClick={exportToExcel}>Export to excel
-                    <span class="material-symbols-outlined">
+                    <span className="material-symbols-outlined">
                         file_export
                     </span>
                     </button>

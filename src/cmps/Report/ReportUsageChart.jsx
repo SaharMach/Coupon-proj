@@ -22,7 +22,6 @@ export function ReportUsageChart({coupons}) {
 
     function getUsageData() {
         const usageData = couponService.getUsageData(coupons)
-        console.log(usageData);
 
         const data = {
             labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],

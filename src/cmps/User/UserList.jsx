@@ -6,7 +6,7 @@ import { UserForm } from "./UserForm";
 export function UserList() {
     const [users, setUsers] = useState([])
     const [hoveredUser, setHoveredUser] = useState({})
-    const [toggleDialog, setToggleDialog] = useState(false);
+    const [toggleDialog, setToggleDialog] = useState(false)
 
 
     useEffect(() => {
@@ -52,7 +52,7 @@ export function UserList() {
         }
         try {
             const createdUser = await userService.signup(newUser)
-            setUsers(prevUsers => [...prevUsers, createdUser]);
+            setUsers(prevUsers => [...prevUsers, createdUser])
             setToggleDialog(false)
             toast.success("User created successfully!")
         } catch (err) {

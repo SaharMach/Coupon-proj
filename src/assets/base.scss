@@ -3,6 +3,8 @@ body {
     background-color: rgb(201, 201, 201);
     padding: 40px;
     font-family: "Sour Gummy", sans-serif;
+    height: 100vh;
+    position: relative;
 }
 
 * {
@@ -27,3 +29,11 @@ a {
     color: inherit;
 }
 
+
+
+@media (max-width: 768px) {
+    body {
+        padding: 0;
+       
+    }
+}

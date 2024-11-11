@@ -1,5 +1,6 @@
 @use './pages/Home' as *;
 @use './pages/AdminPage' as *;
+@use './pages/Login' as *;
 @use './cmps/Admin/AdminHeader' as *;
 @use './cmps/Admin/AdminMenu' as *;
 @use './cmps/DynamicCmp' as *;

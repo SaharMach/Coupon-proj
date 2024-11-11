@@ -1,7 +1,7 @@
 .admin-con {
     background-color: #e0e0e0;
     border-radius: 8px; 
-    height: 90vh;
+    height: 94vh;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -20,3 +20,19 @@
     }
 }
 
+
+@media (max-width: 768px) {
+    
+    .admin-con {
+        height: 100vh;
+        border-radius: 0px;
+        padding: 5px;
+        &-content {
+            flex-direction: column;
+
+            .dyn-cmp {
+                padding: 5px;
+            }
+        }
+    }
+}

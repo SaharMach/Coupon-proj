@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import { userService } from '../services/user.service' 
+import toast from 'react-hot-toast'
 
 export function Login() {
     const [credentials, setCredentials] = useState({ username: '', password: '' })
@@ -10,9 +11,9 @@ export function Login() {
         setCredentials({ username: '', password: '' })
     }
 
-    function handleChange(ev) {
-        const field = ev.target.name
-        const value = ev.target.value
+    function handleChange(e) {
+        const field = e.target.name
+        const value = e.target.value
         setCredentials({ ...credentials, [field]: value })
     }
 
@@ -21,12 +22,17 @@ export function Login() {
         try {
             if (!credentials.username || !credentials.password) return
             const user = await userService.login(credentials)
-            if (user) {
+            if (user.isAdmin) {
                 navigate('/admin')
                 clearState()
+            } else {
+                navigate('/')
+                clearState()
             }
+            toast.success("You are in!")
         } catch (err) {
             console.log('Could not set user', err)
+            toast.error("Username or password invalid")
         }
     }
 
