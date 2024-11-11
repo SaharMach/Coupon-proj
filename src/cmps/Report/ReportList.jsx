@@ -1,13 +1,18 @@
 import { useState } from "react"
+
 import { couponService } from "../../services/coupon.service"
+
 import { ReportFilter } from "./ReportFilter"
 import { ReportItem } from "./ReportItem"
 import { ReportInfo } from "./ReportInfo"
 import { ReportUsageChart } from "./ReportUsageChart"
 import { ReportDoughnut } from "./ReportDoughnut"
+
 import { utils, writeFile } from "xlsx"
 import toast from "react-hot-toast"
+
 export function ReportList({coupons}) {
+    
     const [filteredCoupons, setFilteredCoupons] = useState(coupons)
     const [filters, setFilters] = useState({
         username: "",
@@ -17,12 +22,13 @@ export function ReportList({coupons}) {
 
     let ths = ["ID","Code", "Description", "Type", "Value", "Usage", "Stackable", "Expiry", "Owner", "Created at"]
 
+    //Handle changes in filter input fields
     function handleFilterChange(e) {
         const { name, value } = e.target
         setFilters({ ...filters, [name]: value })
     }
 
-
+    // Applying filters and fetch relevant coupons
     async function applyFilters() {
         try {
             let results = coupons;
@@ -48,7 +54,8 @@ export function ReportList({coupons}) {
             throw err
         }
     }
-
+    
+    // Function to export filtered coupon data to an Excel file
     function exportToExcel() {
         const data = filteredCoupons.map((c) => ({
           ID: c._id,

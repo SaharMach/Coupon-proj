@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { userService } from "../../services/user.service";
-import toast from "react-hot-toast";
 import { UserForm } from "./UserForm";
+import toast from "react-hot-toast";
 
 export function UserList() {
     const [users, setUsers] = useState([])
@@ -12,7 +12,8 @@ export function UserList() {
     useEffect(() => {
         fetchUsers()
     }, [])
-     
+    
+    // Function to get users data
     async function fetchUsers() {
         try {
             const usersData = await userService.getUsers()
@@ -30,6 +31,7 @@ export function UserList() {
         setHoveredUser({})
     }
 
+    //Function to handle deleting user
     async function onDeleteUser(userId) {
         try {
             
@@ -44,6 +46,7 @@ export function UserList() {
         }
     }
     
+    //Function to handle creating user
     async function onCreateUser(e, newUser) {
         e.preventDefault()
         if (!newUser.username || !newUser.password) {

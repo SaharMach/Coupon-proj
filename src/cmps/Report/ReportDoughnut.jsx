@@ -8,7 +8,7 @@ export function ReportDoughnut({coupons}) {
     const now = new Date()
     let activeCount = 0
     let expiredCount = 0
-
+    
     coupons.forEach((coupon) => {
         if (new Date(coupon.expiresAt) > now || coupon.expiresAt == null || coupon.expiresAt == "") {
             activeCount++

@@ -11,13 +11,13 @@ export const userService = {
     getLoggedinUser,
     saveLocalUser,
     getUsers,
-    getById,
     remove,
     loadDemoUsers
 }
 
 window.userService = userService
 
+//Fetchs all users from storage or load demo users if no users are present
 async function getUsers() {
     try {
         let users = await storageService.query(STORAGE_KEY)
@@ -32,17 +32,7 @@ async function getUsers() {
     }
 }
 
-async function getById(userId) {
-    try {
-
-        const user = await storageService.get(STORAGE_KEY, userId)
-        return user
-    } catch (err) {
-        console.log("Can't fetch user by id")
-        throw err
-    }
-}
-
+//Removes a user by userId
 function remove(userId) {
     try {
         return storageService.remove(STORAGE_KEY, userId)
@@ -52,7 +42,7 @@ function remove(userId) {
     }
 }
 
-
+//Login function to check user credentials and set the logged-in user in sessionStorage
 async function login(userCred) {
     console.log(userCred);
     try {
@@ -70,9 +60,8 @@ async function login(userCred) {
     }
 }
 
+//Signup function to add a new user to storage if the username is not already taken
 async function signup(userCred) {
-    console.log(userCred);
-    
     let users = await getUsers()
     const isUsernameTaken = users.some(existingUser => existingUser.username.toLowerCase() === userCred.username.toLowerCase())
     if (isUsernameTaken) {
@@ -88,21 +77,25 @@ async function signup(userCred) {
     }
 }
 
+//Logout function to remove the logged-in user from sessionStorage
 async function logout() {
     console.log('logged out!')
     sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN_USER)
 }
 
+//Save the logged-in user data to sessionStorage
 async function saveLocalUser(user) {
     user = { _id: user._id, username: user.username, isAdmin: user.isAdmin}
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
     return user
 }
 
+//Fetchs logged-in user from sessionStorage
 function getLoggedinUser() {
     return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
 }
 
+//Demo users
 async function loadDemoUsers() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify([
         {_id:utilService.makeId(),  username: 'Sahar', password: '1111111' },

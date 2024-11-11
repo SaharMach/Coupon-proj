@@ -8,6 +8,7 @@ export function OrderPanel() {
     const [orderAmount] = useState(100)
     const [finalAmount, setFinalAmount] = useState(100)
 
+    //Function to handle validation and applying it to the order
     async function handleApplyCoupon(e) {
         e.preventDefault()
         try {
@@ -48,6 +49,7 @@ export function OrderPanel() {
         }
     }
 
+    //Function to calculate the final amount based on applied coupons
     function calculateFinalAmount(initialAmount, coupons) {
         let amount = initialAmount
         
@@ -66,6 +68,7 @@ export function OrderPanel() {
         return Math.max(0, Math.round(amount * 100) / 100)
     }
 
+    //Function to remove an applied coupon and update the final amount
     function removeCoupon(couponToRemove) {
         const updatedCoupons = activeCoupons.filter(c => c.code !== couponToRemove.code)
         const newFinalAmount = calculateFinalAmount(orderAmount, updatedCoupons)

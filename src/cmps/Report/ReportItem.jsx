@@ -1,8 +1,6 @@
 import { utilService } from "../../services/util.services"
 
-
 export function ReportItem({filteredCoupons, setFilters, filters, applyFilters}) {
-
 
     return (
         <>

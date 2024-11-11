@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
-import { userService } from '../services/user.service' 
+
+import { userService } from '../services/user.service'
+
 import toast from 'react-hot-toast'
 
 export function Login() {
@@ -17,6 +19,7 @@ export function Login() {
         setCredentials({ ...credentials, [field]: value })
     }
 
+    //Handle the form submission and attempt to log the user in
     async function onConnect(event) {
         event.preventDefault()
         try {

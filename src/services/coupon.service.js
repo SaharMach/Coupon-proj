@@ -11,9 +11,10 @@ export const couponService = {
     validateCoupon,
     getCouponsByUser,
     getCouponsByDateRange,
-    getUsageData
+    getUsageData,
 }
 
+//Adds a new coupon to the storage
 async function add(coupon) {
     try {
         const res = await storageService.post(STORAGE_KEY, coupon)
@@ -24,6 +25,7 @@ async function add(coupon) {
     }
 }
 
+//Updates an existing coupon in the storage
 async function update(coupon) {
     try {
         return await storageService.put(STORAGE_KEY, coupon)    
@@ -33,9 +35,9 @@ async function update(coupon) {
     }
 }
 
+//Fetch all coupons from the storage or loads demo coupons if none exist
 async function getCoupons() {
     try {
-
         let coupons = await storageService.query(STORAGE_KEY)
         if (!coupons || !coupons.length) {
             await loadDemoCoupons()
@@ -48,6 +50,7 @@ async function getCoupons() {
     }
 }
 
+//Fetch coupons created by a specific user based on username
 async function getCouponsByUser(username) {
     try {
         const coupons = await storageService.query(STORAGE_KEY)
@@ -58,6 +61,7 @@ async function getCouponsByUser(username) {
     }
 }
 
+//Fetch coupons by a specific date range and current filtered coupons(if there are)
 async function getCouponsByDateRange(startDate, endDate, baseCoupons = null) {
     try {
         const couponsToFilter = baseCoupons || await storageService.query(STORAGE_KEY);
@@ -73,6 +77,7 @@ async function getCouponsByDateRange(startDate, endDate, baseCoupons = null) {
     }
 }
 
+//Calculates the monthly usage of each coupon 
 function getUsageData (coupons) {
     const monthlyUsage = Array(12).fill(0); 
     coupons.forEach(coupon => {
@@ -85,6 +90,7 @@ function getUsageData (coupons) {
     return monthlyUsage;
 };
 
+//Validates a coupon by checking its code, expiry, usage limit, and updates usage
 async function validateCoupon(couponCode) {
     try {
         let coupons = await storageService.query(STORAGE_KEY)
@@ -116,6 +122,7 @@ async function validateCoupon(couponCode) {
     }
 }
 
+//Removes a coupon from the storage by its ID
 function remove(couponId) {
     try {
         return storageService.remove(STORAGE_KEY, couponId)
@@ -125,7 +132,7 @@ function remove(couponId) {
     }
 }
 
-
+//Demo coupons
 async function loadDemoCoupons() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(
         [

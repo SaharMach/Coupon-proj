@@ -1,17 +1,26 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
+
 import { userService } from "../services/user.service"
+import { couponService } from "../services/coupon.service"
+
 import { OrderPanel } from "../cmps/OrderPanel"
 
 export function Home() {
+
     const [user, setUser] = useState(userService.getLoggedinUser())
+    const [coupons, setCoupons] = useState([])
+
     useEffect(() => {
         init()
     }, [user])  
-
+    
+    // Initialize function to load demo users and coupons
     async function init() {
         try {
             await userService.loadDemoUsers()
+            const res = await couponService.getCoupons()
+            setCoupons(res)
         } catch (err) {
             console.log('Cant load app', err)
         }

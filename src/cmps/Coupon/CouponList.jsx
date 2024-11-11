@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { couponService } from "../../services/coupon.service";
+
 import { CouponForm } from "./CouponForm";
 import { CouponCard } from "./CouponCard";
 
@@ -10,17 +11,19 @@ export function CouponList({coupons, setCoupons}) {
     const [showForm, setShowForm] = useState(false);
     const [couponToEdit, setCouponToEdit] = useState(null);
 
+    // Showing creating coupon form
     function handleCreateCoupon(){
         setCouponToEdit(null)
         setShowForm(true)
     }
 
+    // Showing edit coupon form
     function handleEditCoupon(coupon){
         setCouponToEdit(coupon);
         setShowForm(true)
     }
 
-
+    // Deleting coupon 
     async function onDeleteCoupon(couponId) {
         try {
             await couponService.remove(couponId)

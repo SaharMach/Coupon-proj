@@ -1,7 +1,9 @@
+import { useEffect, useState } from "react"
+
+import { userService } from "../../services/user.service"
+
 import { Chart } from "chart.js"
 import { Bar } from "react-chartjs-2"
-import { userService } from "../../services/user.service"
-import { useEffect, useState } from "react";
 
 export function ReportInfo({coupons}) {
 
@@ -10,7 +12,8 @@ export function ReportInfo({coupons}) {
     useEffect(() => {
         usersCount()
     }, [])
-  
+    
+    // Finding the most used coupon
     function mostUsedCoupon() {
         if(!coupons.length) return 
         let mostUsed = coupons[0]
@@ -23,6 +26,7 @@ export function ReportInfo({coupons}) {
         return mostUsed
     }
 
+    // Finding the most unused coupon
     function mostUnusedCoupon() {
         if(!coupons.length) return 
         let mostUnused = coupons[0]
@@ -34,6 +38,7 @@ export function ReportInfo({coupons}) {
         return mostUnused
     }
 
+    // Sets user count
     async function usersCount() {
         try {
             let users = await userService.getUsers()

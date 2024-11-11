@@ -1,6 +1,7 @@
 import { useState } from "react"
 
 export function UserForm({ onCreateUser }) {
+    
     const [newUser, setNewUser] = useState({ username: "", password: "", isAdmin: false })
 
     function handleInputChange(e) {

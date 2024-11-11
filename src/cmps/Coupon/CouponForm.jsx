@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
+
 import { couponService } from "../../services/coupon.service";
 import { userService } from "../../services/user.service";
+
 import toast from "react-hot-toast";
 
 export function CouponForm({ couponToEdit, setCoupons, setShowForm }) {
@@ -14,22 +16,24 @@ export function CouponForm({ couponToEdit, setCoupons, setShowForm }) {
         usageLimit: 100,
         usedCount: 0,
         createdBy: { _id: '', username: '' },
-    });
+    })
 
     useEffect(() => {
         if (couponToEdit) {
             setCoupon(couponToEdit)
         }
-    }, [couponToEdit]);
+    }, [couponToEdit])
 
+    //Handle input changes for regular fields
     function handleChange (e) {
         const { name, value, type, checked } = e.target
         setCoupon((prevCoupon) => ({
             ...prevCoupon,
             [name]: type === 'checkbox' ? checked : value,
-        }));
-    };
+        }))
+    }
 
+    //Handle changes for the discount type and value
     function handleDiscountChange(e) {
         const { name, value } = e.target
         setCoupon((prevCoupon) => ({
@@ -38,16 +42,18 @@ export function CouponForm({ couponToEdit, setCoupons, setShowForm }) {
                 ...prevCoupon.discount,
                 [name]: value,
             },
-        }));
-    };
+        }))
+    }
 
+    //Handle date input change
     function handleDateChange(e) {
         setCoupon((prevCoupon) => ({
             ...prevCoupon,
             expiresAt: e.target.value ? new Date(e.target.value) : null,
-        }));
-    };
+        }))
+    }
 
+    //Handle form submission for creating or updating a coupon
     async function handleSubmit(e) {
         e.preventDefault()
         try {
@@ -71,6 +77,7 @@ export function CouponForm({ couponToEdit, setCoupons, setShowForm }) {
         }
     }
 
+    //Format date for input in 'yyyy-mm-dd' format
     function formatDateForInput(date) {
         if (!date) return '';
         if (typeof date === 'string') {
@@ -81,6 +88,7 @@ export function CouponForm({ couponToEdit, setCoupons, setShowForm }) {
         }
         return ''
     }
+
     return (
         <div className="coupon-form">
             <h3>{coupon._id ? "Edit Coupon" : "Create Coupon"}</h3>

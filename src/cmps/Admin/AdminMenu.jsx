@@ -1,6 +1,7 @@
 import { userService } from "../../services/user.service"
 
 export function AdminMenu({ setType, type, setLoggedInUser }) {
+    
     const menuItems = ['Users', 'Coupons', 'Reports']
 
     function onLogout() {
