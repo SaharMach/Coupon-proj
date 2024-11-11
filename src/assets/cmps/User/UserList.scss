@@ -1,114 +1,135 @@
 .user-list-con {
-    width: 100%;
-    margin: 0 auto;
-    
     &-header {
-        display: flex;
-        justify-content: space-between;    
-        align-items: center;
-        h3 {
-            font-size: 30px;
-            font-weight: 300;
-            border-bottom: 2px solid black;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      h3 {
+        font-size: 32px;
+        font-weight: 300;
+        position: relative;
+        color: #0f172a;
+        padding-bottom: 8px;
+        border-bottom: 2px solid black;
+      }
+  
+      button {
+        padding: 10px 18px; 
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: 500;
+        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+        background-color: #007bff; 
+        &:hover {
+            background-color: #2c88eb;    
         }
-        button {
-            padding: 10px 90px;
-            border-radius: 8px;
-            border: none;
-            background-color: #007bff;
-            color: white;
-            cursor: pointer;
-
+  
+        
+      }
+    }
+  
+    .user-list {
+      list-style: none;
+      display: grid;
+      gap: 5px;
+      border-radius: 16px;
+        .user-item {
+            background: white;
+            padding: 8px 16px;
+            border-radius: 16px;
+            display: grid;
+            grid-template-columns: 0.2fr 1fr 1fr 1fr 1fr;
+            align-items: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(128, 128, 128, 0.226);
+            
             &:hover {
-                background-color: #2c88eb;
+                border-color: #e2e8f0;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            }
+    
+            .username {
+                font-weight: 500;
+                color: #0f172a;
+                font-size: 15px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            .userId {
+                font-size: 14px;
+            }
+            .password {
+                color: #64748b;
+                font-family: 'SF Mono', 'Roboto Mono', monospace;
+                padding: 8px 16px;
+                background-color: #f8fafc;
+                border-radius: 8px;
+                font-size: 13px;
+                letter-spacing: 0.5px;
+                border: 1px solid #f1f5f9;
+                width: max-content;
+                transition: all 0.3s ease;
+                align-self: center;
+                justify-self: center;
+                &:hover {
+                background-color: #f1f5f9;
+                border-color: #e2e8f0;
+                }
+            }
+
+            .demo-email {
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        
+            .delete-btn {
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                justify-self: end;
+                width: 80px;
+                height: 32px;
+                font-size: 13px;
+                font-weight: 500;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 6px;
             }
         }
     }
-
-
     .create-dialog {
         position: absolute;
         top: 50%;
         left: 50%;
+        min-width: 400px;
         transform: translate(-50%, -50%);
-        background-color: #ffffff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-        z-index: 10;
-        width: 30%;
+        background: rgb(253, 253, 253);
+        padding: 32px;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        border: 2px solid rgba(128, 128, 128, 0.308);
         .close-btn {
             position: absolute;
-            right: 5%;
-            top: 0;
-            margin-top: 10px;
-            background-color: #007bff;
+            top: 20px;
+            right: 16px;
             border: none;
-            border-radius: 4px;
-            padding: 8px 12px;
             cursor: pointer;
-            font-size: 12px;
-            color: #ffffff;
-            &:hover {
-                background-color: #2c88eb;
-            }
-        }
-    }
-    
-
-
-    .user-list {
-        .user-item {
-            display: grid;
-            grid-template-columns: 1fr 1fr 0.2fr;
-            background-color: #ffffff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 26px;
-            margin-bottom: 12px;
+            transition: all 0.2s ease;
             font-size: 16px;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            align-items: center;
-            font-family: Arial, sans-serif;
-
+            background-color: #6e6e6e;
+            color: #ffff;
+            border-radius: 50%;
+            display: flex;
+            text-align: center;
             &:hover {
-                background-color: #f4f4f4;
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            }
-
-            .username {
-                font-weight: bold;
-                color: #333;
-            }
-
-            .password {
-                color: #999;
-                transition: color 0.3s ease;
-                display: flex;
-                font-size: 12px;
-                text-overflow: ellipsis;
-            }
-
-            .delete-btn {
-                background-color: #e0e0e0;
-                border: none;
-                border-radius: 4px;
-                padding: 8px 12px;
-                cursor: pointer;
-                font-size: 12px;
-                transition: background-color 0.3s ease;
-
-                &:hover {
-                    background-color: #bebebe;
-                }
-            }
-
-            &:hover {
-                .password {
-                    color: #333;
-                }
+                background-color: #6e6e6e85;
             }
         }
     }
 }
+  

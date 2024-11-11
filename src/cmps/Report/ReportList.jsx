@@ -5,6 +5,7 @@ import { ReportItem } from "./ReportItem"
 import { ReportInfo } from "./ReportInfo"
 import { ReportUsageChart } from "./ReportUsageChart"
 import { ReportDoughnut } from "./ReportDoughnut"
+import { utils, writeFile } from "xlsx"
 
 export function ReportList({coupons}) {
     const [filteredCoupons, setFilteredCoupons] = useState(coupons)
@@ -39,18 +40,49 @@ export function ReportList({coupons}) {
             throw err
         }
     }
+
+    function exportToExcel() {
+        const data = filteredCoupons.map((c) => ({
+          ID: c._id,
+          Code: c.code,
+          Description: c.desc,
+          Type: c.discount.type,
+          Value: c.discount.value,
+          Usage: `${c.used.count}/${c.usageLimit} times`,
+          Stackable: c.stackable ? "Yes" : "No",
+          Expiry: c.expiresAt
+            ? new Date(c.expiresAt).toLocaleDateString()
+            : "Unlimited",
+          Owner: c.createdBy.username,
+          "Created At": new Date(c.createdBy.at).toLocaleDateString(),
+        }))
+        const worksheet = utils.json_to_sheet(data)
+        const workbook = utils.book_new()
+
+        utils.book_append_sheet(workbook, worksheet, "Coupons")
+        writeFile(workbook, "Coupons_Report.xlsx")
+        console.log("Excel file created!")
+      }
+    
     
     return (
         <div className="report-list-con">
             <section className="report-list-header">
-            <h3>Reports</h3>
-            <div className="filters">
-               <ReportFilter 
-                filters={filters}
-                handleFilterChange={handleFilterChange}
-                applyFilters={applyFilters}
-                /> 
-            </div>
+                <section>
+                    <h3>Reports</h3>
+                    <button onClick={exportToExcel}>Export to excel
+                    <span class="material-symbols-outlined">
+                        file_export
+                    </span>
+                    </button>
+                </section>
+                <div className="filters">
+                    <ReportFilter 
+                        filters={filters}
+                        handleFilterChange={handleFilterChange}
+                        applyFilters={applyFilters}
+                        /> 
+                </div>
             </section>
             <div className="report-list">
                     {filteredCoupons.length > 0 ? (

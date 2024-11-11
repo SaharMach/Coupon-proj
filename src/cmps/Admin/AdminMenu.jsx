@@ -21,7 +21,7 @@ export function AdminMenu({ setType, type, setLoggedInUser }) {
                 ))}
             </ul>
             <span className="admin-menu-signout" onClick={onLogout}>Sign out
-                <span class="material-symbols-outlined">
+                <span className="material-symbols-outlined">
                     logout
                 </span>
             </span>

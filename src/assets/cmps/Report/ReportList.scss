@@ -3,19 +3,41 @@
     background: #f6f7f9;
     display: grid;
     grid-template-rows: 0.3fr 2fr 0.1fr 1fr;
-    gap: 30px; 
+    gap: 20px; 
     height: 100%;
 
     .report-list-header {
       background: #fff;
-      margin-bottom: 10px;
-    
-      h3 {
-        font-size: 30px;
-        font-weight: 300;
-        border-bottom: 2px solid black;
-        width: max-content;
-        
+      section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        h3 {
+          font-size: 32px;
+          font-weight: 300;
+          position: relative;
+          color: #0f172a;
+          padding-bottom: 8px;
+          border-bottom: 2px solid black;
+        }
+        button {
+          padding: 10px 18px; 
+          color: white;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          font-weight: 500;
+          background-color: #007bff; 
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          span {
+            font-size: 16px;
+          }
+          &:hover {
+              background-color: #2c88eb;    
+          }
+        }
       }
   
       .filters {

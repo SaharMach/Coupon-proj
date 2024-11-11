@@ -78,7 +78,18 @@ export function UserList() {
                             onMouseEnter={() => handleMouseEnter(user._id)} 
                             onMouseLeave={handleMouseLeave}
                         >
-                            <span className="username">{user.username}</span>
+                            <span className="userId">{user._id}</span>
+                            <span className="username">
+                                {user.isAdmin ? 
+                                <span className="material-symbols-outlined">
+                                    shield_person
+                                </span>
+                                : <span className="material-symbols-outlined">
+                                person
+                                </span>}
+                                {user.username}
+                            </span>
+                            <span className="demo-email">{`${user.username}@gmail.com`}</span>
                             <span className="password">{hoveredUser === user._id ? user.password : '********'}</span>
                             <button
                                 className="delete-btn"
@@ -94,7 +105,7 @@ export function UserList() {
             </ul>
             {toggleDialog && (
                 <div className="create-dialog">
-                    <button className="close-btn" onClick={() => setToggleDialog(false)}>X</button>
+                    <button className="close-btn" onClick={() => setToggleDialog(false)}>x</button>
                     <UserForm onCreateUser={onCreateUser} />
                 </div>
             )}
