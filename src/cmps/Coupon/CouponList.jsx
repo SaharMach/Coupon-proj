@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { couponService } from "../services/coupon.service";
+
+import { couponService } from "../../services/coupon.service";
 import { CouponForm } from "./CouponForm";
 import { CouponCard } from "./CouponCard";
 
 import toast from "react-hot-toast";
+
 export function CouponList({coupons, setCoupons}) {
     const [showForm, setShowForm] = useState(false);
     const [couponToEdit, setCouponToEdit] = useState(null);
@@ -45,11 +47,13 @@ export function CouponList({coupons, setCoupons}) {
                 setShowForm={setShowForm}
             />
         )}
-        <CouponCard 
-            handleEditCoupon={handleEditCoupon}
-            onDeleteCoupon={onDeleteCoupon}
-            coupons={coupons}
-        />
+        <ul>
+            <CouponCard 
+                handleEditCoupon={handleEditCoupon}
+                onDeleteCoupon={onDeleteCoupon}
+                coupons={coupons}
+            />
+        </ul>
     </div>
     );
 }

@@ -1,7 +1,6 @@
 .user-list-con {
     width: 100%;
     margin: 0 auto;
-    padding: 20px;
     
     &-header {
         display: flex;
@@ -59,8 +58,6 @@
 
 
     .user-list {
-        
-
         .user-item {
             display: grid;
             grid-template-columns: 1fr 1fr 0.2fr;
@@ -91,7 +88,6 @@
                 display: flex;
                 font-size: 12px;
                 text-overflow: ellipsis;
-
             }
 
             .delete-btn {

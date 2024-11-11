@@ -8,7 +8,10 @@ export const couponService = {
     remove,
     add,
     update,
-    validateCoupon
+    validateCoupon,
+    getCouponsByUser,
+    getCouponsByDateRange,
+    getUsageData
 }
 
 async function add(coupon) {
@@ -46,6 +49,47 @@ async function getCoupons() {
     }
 }
 
+async function getCouponsByUser(username) {
+    try {
+        const coupons = await storageService.query(STORAGE_KEY)
+        return coupons.filter(coupon => coupon.createdBy.username.toLowerCase() === username.toLowerCase())
+    } catch (err) {
+        console.error("Failed to get coupons by user:", err)
+        throw err
+    }
+}
+
+async function getCouponsByDateRange(startDate, endDate) {
+    console.log(startDate, endDate);
+    
+    try {
+        const coupons = await storageService.query(STORAGE_KEY)
+        const start = new Date(startDate)
+        const end = new Date(endDate)
+
+        return coupons.filter(coupon => {
+            const createdDate = new Date(coupon.createdBy.at)
+            return createdDate >= start && createdDate <= end
+        });
+    } catch (err) {
+        console.error("Failed to get coupons by date range:", err)
+        throw err
+    }
+}
+
+function getUsageData (coupons) {
+    const monthlyUsage = Array(12).fill(0); 
+    coupons.forEach(coupon => {
+        coupon.used.at.forEach(date => {
+            const month = new Date(date).getMonth()
+            monthlyUsage[month] += 1
+        });
+    });
+    console.log(monthlyUsage);
+    
+    return monthlyUsage;
+};
+
 async function validateCoupon(couponCode) {
     try {
         let coupons = await storageService.query(STORAGE_KEY)
@@ -68,7 +112,8 @@ async function validateCoupon(couponCode) {
             return
         }
 
-        coupon.usedCount++
+        coupon.used.count++
+        coupon.used.at.push(new Date().toLocaleDateString())
         return await update(coupon)
     } catch(err) {
         console.log("Can't validate coupon", err);
@@ -78,7 +123,6 @@ async function validateCoupon(couponCode) {
 
 function remove(couponId) {
     try {
-
         return storageService.remove(STORAGE_KEY, couponId)
     } catch (err) {
         console.log("Can't remove coupon")
@@ -95,10 +139,10 @@ async function loadDemoCoupons() {
                 code: "SAVE20", 
                 desc: "20% of all items",
                 discount: { type: "percentage", value: 20 },
-                expiresAt: new Date("2024-12-31T23:59:59"),
+                expiresAt: new Date("2024-06-28T23:59:59"),
                 stackable: true,
                 usageLimit: 100,
-                usedCount: 0,
+                used: {at: [], count: 0},
                 createdBy: {_id: "BXypEk", username: "Admin", at: new Date()}
             },
             {
@@ -109,8 +153,8 @@ async function loadDemoCoupons() {
                 expiresAt: new Date("2024-12-31T23:59:59"),
                 stackable: true,
                 usageLimit: 100,
-                usedCount: 0,
-                createdBy: {_id: "BXypEk", username: "Admin",at: new Date()}
+                used: {at: [], count: 0},
+                createdBy: {_id: "BXypEk", username: "Admin",at: new Date("2024-02-28")}
             },
             {
                 _id: utilService.makeId(),
@@ -120,8 +164,8 @@ async function loadDemoCoupons() {
                 expiresAt: new Date("2024-12-31T23:59:59"),
                 stackable: true,
                 usageLimit: 150,
-                usedCount: 0,
-                createdBy: { _id: "BXypEk", username: "Admin", at: new Date() }
+                used: {at: [], count: 0},
+                createdBy: { _id: "BXypEk", username: "Admin", at: new Date("2024-02-12")}
             },
             {
                 _id: utilService.makeId(),
@@ -131,8 +175,8 @@ async function loadDemoCoupons() {
                 expiresAt: new Date("2024-12-31T23:59:59"),
                 stackable: true,
                 usageLimit: 120,
-                usedCount: 0,
-                createdBy: { _id: "BXypEk", username: "Admin", at: new Date() }
+                used: {at: [], count: 0},
+                createdBy: { _id: "BXypEk", username: "Sahar", at: new Date("2024-04-12")}
             },
             {
                 _id: utilService.makeId(),
@@ -142,7 +186,7 @@ async function loadDemoCoupons() {
                 expiresAt: null,
                 stackable: true,
                 usageLimit: 80,
-                usedCount: 0,
+                used: {at: [], count: 0},
                 createdBy: { _id: "BXypEk", username: "Admin", at: new Date() }
             },
             {
@@ -153,8 +197,8 @@ async function loadDemoCoupons() {
                 expiresAt: null,
                 stackable: false,
                 usageLimit: 50,
-                usedCount: 0,
-                createdBy: { _id: "BXypEk", username: "Admin", at: new Date() }
+                used: {at: [], count: 0},
+                createdBy: { _id: "BXypEk", username: "Sahar", at: new Date("2024-10-12")}
             },
             {
                 _id: utilService.makeId(),
@@ -164,9 +208,21 @@ async function loadDemoCoupons() {
                 expiresAt: new Date("2024-12-31T23:59:59"),
                 stackable: false,
                 usageLimit: 10,
-                usedCount: 0,
-                createdBy: { _id: "BXypEk", username: "Admin", at: new Date() }
+                used: {at: [], count: 0},
+                createdBy: { _id: "BXypEk", username: "Admin",at: new Date("2024-10-28")}
+            },
+            {
+                _id: utilService.makeId(),
+                code: "SAVE80",
+                desc: "80% off for VIP members",
+                discount: { type: "percentage", value: 80 },
+                expiresAt: new Date("2024-12-31T23:59:59"),
+                stackable: false,
+                usageLimit: 10,
+                used: {at: [], count: 0},
+                createdBy: { _id: "BXypEk", username: "Admin",at: new Date("2024-10-28")}
             }
+            
         ]
 ))
     console.log('Demo coupons loaded')

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { couponService } from "../services/coupon.service";
-import { userService } from "../services/user.service";
+import { couponService } from "../../services/coupon.service";
+import { userService } from "../../services/user.service";
 import toast from "react-hot-toast";
 
 export function CouponForm({ couponToEdit, setCoupons, setShowForm }) {
@@ -57,6 +57,7 @@ export function CouponForm({ couponToEdit, setCoupons, setShowForm }) {
             } else {
                 const user = userService.getLoggedinUser()
                 coupon.createdBy = {_id : user._id, username: user.username, at: new Date()}
+                coupon.used = {at: [], count: 0}
                 await couponService.add(coupon)
                 toast.success("Coupon created successfully")
             }

@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router'
 import { userService } from "../services/user.service"
 import { couponService } from "../services/coupon.service"
 
-import { AdminHeader } from "../cmps/AdminHeader"
-import { AdminMenu } from "../cmps/AdminMenu"
+import { AdminHeader } from "../cmps/Admin/AdminHeader"
+import { AdminMenu } from "../cmps/Admin/AdminMenu"
 import { DynamicCmp } from "../cmps/DynamicCmp"
 
 export function AdminPage() {

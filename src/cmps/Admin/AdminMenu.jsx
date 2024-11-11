@@ -1,4 +1,4 @@
-import { userService } from "../services/user.service"
+import { userService } from "../../services/user.service"
 
 export function AdminMenu({ setType, type, setLoggedInUser }) {
     const menuItems = ['Users', 'Coupons', 'Reports']
@@ -20,7 +20,11 @@ export function AdminMenu({ setType, type, setLoggedInUser }) {
                     </li>
                 ))}
             </ul>
-            <span className="admin-menu-signout" onClick={onLogout}>Sign out</span>
+            <span className="admin-menu-signout" onClick={onLogout}>Sign out
+                <span class="material-symbols-outlined">
+                    logout
+                </span>
+            </span>
         </nav>
     )
 }

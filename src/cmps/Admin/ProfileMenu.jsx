@@ -3,6 +3,5 @@ export function ProfileMenu({loggedInUser}) {
     return <div className="admin-header-menu">
         <img src={img} alt="" />
         <span>{loggedInUser?.username}</span>
-
     </div>
 }

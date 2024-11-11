@@ -84,7 +84,7 @@ async function signup(userCred) {
     }
     try {
         const user = await storageService.post(STORAGE_KEY, userCred)
-        saveLocalUser(user) //Check it!
+        //saveLocalUser(user) //Check it!
         return user 
     } catch (err) {
         console.error('Failed to sign up user:', err);

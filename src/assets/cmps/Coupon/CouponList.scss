@@ -1,0 +1,12 @@
+.coupon-list {
+    
+    ul {
+        all: unset;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px; 
+        padding: 16px; 
+        justify-content: center;
+        align-items: flex-start;
+    }
+}

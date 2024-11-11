@@ -15,7 +15,7 @@ export function OrderPanel() {
             const coupon = await couponService.validateCoupon(couponCode)
             console.log(coupon);
             
-            if(activeCoupons.some(c => c.code === couponCode)){
+            if(activeCoupons.some(c => c.code.toLowerCase() === couponCode.toLocaleLowerCase())){
                 toast.error('Coupon already in use!')
                 return
             }

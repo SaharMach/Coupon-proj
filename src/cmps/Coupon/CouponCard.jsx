@@ -1,7 +1,8 @@
+import { utilService } from "../../services/util.services"
 export function CouponCard({coupons, handleEditCoupon, onDeleteCoupon}) {
 
     return (
-        <ul>
+        <>
             {coupons.map((coupon) => (
                 <li className={`coupon-card ${coupon.stackable ? 'stackable' : ''}`} key={coupon._id}>
                     <div className="coupon-header">
@@ -15,15 +16,12 @@ export function CouponCard({coupons, handleEditCoupon, onDeleteCoupon}) {
                     <div className="coupon-body">
                         <p className="coupon-desc">{coupon.desc}</p>
                         <p className="coupon-expires">
-                            Expires: {coupon.expiresAt ? new Date(coupon.expiresAt).toLocaleDateString() : 'Unlimited'}
+                            Expires: {coupon.expiresAt ? utilService.formatDate(new Date(coupon.expiresAt).toLocaleDateString()) : 'Unlimited'}
                         </p>
                         <p className="coupon-usage">
-                            Usage: {coupon.usedCount}/{coupon.usageLimit}
+                            Usage: {coupon.used.count}/{coupon.usageLimit}
                         </p>
-                        <p className="coupon-created-by">
-                            Created by: {coupon.createdBy.username}<br />
-                            At: {new Date(coupon.createdBy.at).toLocaleDateString()}
-                        </p>
+                       
                         {coupon.stackable && <div className="coupon-badge">Stackable</div>}
                     </div>
                     <button className="edit-btn" onClick={() => handleEditCoupon(coupon)}>
@@ -38,6 +36,6 @@ export function CouponCard({coupons, handleEditCoupon, onDeleteCoupon}) {
                     </button>
                 </li>
             ))}
-        </ul>
+        </>
     )
 }
